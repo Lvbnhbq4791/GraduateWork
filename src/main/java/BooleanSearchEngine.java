@@ -51,6 +51,7 @@ public class BooleanSearchEngine implements SearchEngine {
             }
             doc.close();
         }
+        sortPageEntry();
     }
 
     public void mapPageEntry(String fileName, int pageNum, Map<String, Integer> freqs) {
@@ -68,17 +69,20 @@ public class BooleanSearchEngine implements SearchEngine {
         }
     }
 
+    public void sortPageEntry() {
+        String[] keyWordPageEntry = wordPageEntry.keySet().toArray(new String[0]);
+        for (String key : keyWordPageEntry) {
+            Collections.sort(wordPageEntry.get(key));
+        }
+    }
+
     @Override
     public List<PageEntry> search(String word) {
-        try {
-            word = word.toLowerCase();
-            List<PageEntry> pageEntries;
-            pageEntries = wordPageEntry.get(word);
-            Collections.sort(pageEntries);
-            return pageEntries;
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+        word = word.toLowerCase();
+        if (wordPageEntry.get(word)!=null) {
+            return wordPageEntry.get(word);
+        } else {
+            return Collections.emptyList();
         }
-        return null;
     }
 }

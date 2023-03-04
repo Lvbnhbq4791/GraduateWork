@@ -4,12 +4,11 @@ import com.google.gson.GsonBuilder;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Objects;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
         BooleanSearchEngine engine = new BooleanSearchEngine(new File("pdfs"));
-//        System.out.println(engine.search("бизнес"));
         GsonBuilder builder = new GsonBuilder();
         try (ServerSocket serverSocket = new ServerSocket(8989)) { // стартуем сервер один(!) раз
             while (true) { // в цикле(!) принимаем подключения
@@ -22,10 +21,10 @@ public class Main {
                             .create();
                     String text = in.readLine();
                     System.out.println("Запрос поиска слово: " + text);
-                    String answer = gson.toJson(engine.search(text));
-                    if(!Objects.equals(answer, "null")){
-                        out.println(answer);
-                    }else {
+                    List<PageEntry> answer = engine.search(text);
+                    if (!answer.isEmpty()){
+                        out.println(gson.toJson(answer));
+                    } else {
                         out.println("В тексте слова "+"<<"+text+">>"+" нет");
                     }
                 } catch (IOException e) {
