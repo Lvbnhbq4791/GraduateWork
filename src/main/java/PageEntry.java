@@ -1,7 +1,7 @@
 public class PageEntry implements Comparable<PageEntry> {
     private final String pdfName;//имя
-    private final int page;//страница
-    private final int count;//количество считаных слов на странице
+    private final Integer page;//страница
+    private final Integer count;//количество считаных слов на странице
 
     public PageEntry(String pdfName, int page, int count) {
         this.pdfName = pdfName;
@@ -10,7 +10,15 @@ public class PageEntry implements Comparable<PageEntry> {
 
     }
 
-    public int getCount() {
+    public String getPdfName() {
+        return pdfName;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public Integer getCount() {
         return count;
     }
 
