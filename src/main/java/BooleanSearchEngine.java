@@ -13,14 +13,14 @@ public class BooleanSearchEngine implements SearchEngine {
     protected File pdfsDir;
     protected File stopWords;
     protected Map<String, List<PageEntry>> wordPageEntry;
-    protected List<String> listOfstopWords;
+    protected HashSet<String> listOfstopWords;
     protected Set<String> keyWordPageEntry;
 
     public BooleanSearchEngine(File pdfsDir, File stopWords) throws IOException {
         this.pdfsDir = pdfsDir;
         this.stopWords = stopWords;
         wordPageEntry = new HashMap<>();
-        listOfstopWords = new ArrayList<>();
+        listOfstopWords = new HashSet<>();
         keyWordPageEntry = new TreeSet<>();
         filePdfProcessing();
     }
@@ -37,7 +37,7 @@ public class BooleanSearchEngine implements SearchEngine {
         this.stopWords = stopWords;
     }
 
-    public void setListOfstopWords(List<String> listOfstopWords) {
+    public void setListOfstopWords(HashSet<String> listOfstopWords) {
         this.listOfstopWords = listOfstopWords;
     }
 
@@ -53,7 +53,7 @@ public class BooleanSearchEngine implements SearchEngine {
         return stopWords;
     }
 
-    public List<String> getListOfstopWords() {
+    public HashSet<String> getListOfstopWords() {
         return listOfstopWords;
     }
 
